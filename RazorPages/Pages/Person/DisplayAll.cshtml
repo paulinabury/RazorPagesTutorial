@@ -1,0 +1,37 @@
+﻿@page
+@model RazorPages.Pages.Person.DisplayAll
+@{
+}
+<partial name="_Message" />
+
+<h3>People</h3>
+<a asp-page="Create" class="btn btn-dark my-2 ">Add more</a>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in Model.People)
+        {
+            <tr>
+                <th>@p.Name</th>
+                <th>@p.Email</th>
+                <td>
+                    <div class="d-flex justify-content-left">
+                        <a asp-page="Edit" asp-route-id="@p.Id" class="btn btn-success">Edit</a>
+                        <form asp-action="DisplayAll">
+                            <button onclick="return confirm('Are you sure?')" asp-page-handler="Delete" asp-route-id="@p.Id" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
