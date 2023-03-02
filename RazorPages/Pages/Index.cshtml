@@ -1,27 +1,32 @@
 ﻿@page
 @model RazorPages.Pages.IndexModel
 @{
+    var author =  Model.MostPopularAuthor.Name;
+    var channel = Model.MostPopularAuthor.Url;
 }
 
-<h2>Welcome</h2>
+
 <div class="card w-100 mb-2 p-2">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac nisl sem. Phasellus dictum nunc nec nunc volutpat, sit amet pulvinar sem rhoncus. Sed euismod neque posuere justo maximus porta tincidunt eu metus. Pellentesque posuere est egestas, laoreet elit ut, pretium justo. Ut sed auctor urna. Nam tempus magna velit, nec venenatis magna tempus nec. Praesent erat enim, scelerisque a enim lobortis, tristique aliquam metus. In vitae sapien nec magna sagittis auctor. Vestibulum at nisl nisl. Pellentesque sed rhoncus urna. Duis efficitur ante ac arcu sollicitudin, ut tempor sem ornare.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac nisl sem. Phasellus dictum nunc nec nunc volutpat, sit amet pulvinar sem rhoncus. Sed euismod neque posuere justo maximus porta tincidunt eu metus. Pellentesque posuere est egestas, laoreet elit ut, pretium justo. Ut sed auctor urna. Nam tempus magna velit, nec venenatis magna tempus nec. Praesent erat enim, scelerisque a enim lobortis, tristique aliquam metus. In vitae sapien nec magna sagittis auctor. Vestibulum at nisl nisl. Pellentesque sed rhoncus urna. Duis efficitur ante ac arcu sollicitudin, ut tempor sem ornare.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac nisl sem. Phasellus dictum nunc nec nunc volutpat, sit amet pulvinar sem rhoncus. Sed euismod neque posuere justo maximus porta tincidunt eu metus. Pellentesque posuere est egestas, laoreet elit ut, pretium justo. Ut sed auctor urna. Nam tempus magna velit, nec venenatis magna tempus nec. Praesent erat enim, scelerisque a enim lobortis, tristique aliquam metus. In vitae sapien nec magna sagittis auctor. Vestibulum at nisl nisl. Pellentesque sed rhoncus urna. Duis efficitur ante ac arcu sollicitudin, ut tempor sem ornare.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac nisl sem. Phasellus dictum nunc nec nunc volutpat, sit amet pulvinar sem rhoncus. Sed euismod neque posuere justo maximus porta tincidunt eu metus. Pellentesque posuere est egestas, laoreet elit ut, pretium justo. Ut sed auctor urna. Nam tempus magna velit, nec venenatis magna tempus nec. Praesent erat enim, scelerisque a enim lobortis, tristique aliquam metus. In vitae sapien nec magna sagittis auctor. Vestibulum at nisl nisl. Pellentesque sed rhoncus urna. Duis efficitur ante ac arcu sollicitudin, ut tempor sem ornare.</p>
+    <p>Upload your youtube history and see who your favorite creator is and what video you have seen the most times!</p>
+    <div class="d-grid gap-2 d-md-block">
+       <a asp-page="Youtube/Upload" class="btn btn-primary my-2 ">Add your history</a>
+    </div>
 </div>
+
+
 <div class="d-flex justify-content-between">
     <div class="card" style="width: 22rem;">
-        <img src="https://picsum.photos/200/140" class="card-img-top" alt="...">
+        <a href="https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl" target="_blank"><img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="..."></a>
         <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Checkout trending videos on YouTube! </p>
+            <p><a href="https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl" target="_blank">Link to trading page</a></p>
         </div>
     </div>
     <div class="card" style="width: 22rem;">
         <img src="https://picsum.photos/200/140" class="card-img-top" alt="...">
         <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Your favorite creator is @author</p>
+            <p><a href="@channel" target="_blank">Link to the channel</a></p>
         </div>
     </div>
     <div class="card" style="width: 22rem;">

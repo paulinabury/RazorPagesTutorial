@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPages", "RazorPages\RazorPages.csproj", "{121EC5D6-A6AD-48BA-B0C7-AE9F7767BF52}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HistoryBrowser.Cli", "HistoryBrowser.Cli\HistoryBrowser.Cli.csproj", "{463A444B-34E9-49FB-A253-4A2FEDEF007F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{121EC5D6-A6AD-48BA-B0C7-AE9F7767BF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{121EC5D6-A6AD-48BA-B0C7-AE9F7767BF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{121EC5D6-A6AD-48BA-B0C7-AE9F7767BF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463A444B-34E9-49FB-A253-4A2FEDEF007F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463A444B-34E9-49FB-A253-4A2FEDEF007F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463A444B-34E9-49FB-A253-4A2FEDEF007F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463A444B-34E9-49FB-A253-4A2FEDEF007F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

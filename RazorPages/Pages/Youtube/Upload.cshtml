@@ -1,0 +1,10 @@
+﻿@page
+@model RazorPages.Pages.Youtube.UploadModel
+@{
+}
+
+<form method="post" enctype="multipart/form-data">
+    <label for="formFile" class="form-label mt-4">Upload json file with your youtube history</label>
+    <input class="form-control" type="file" id="formFile" asp-for="Upload">
+    <button class="btn btn-primary mt-2" type="submit">Submit</button>
+</form>
