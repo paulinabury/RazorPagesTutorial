@@ -1,8 +1,18 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using RazorPages.Models
 @model RazorPages.Pages.IndexModel
 @{
     var message = "Upload your youtube history to get results. ";
+
+    var pager = new Pager();
+    var pageNo = 0;
+
+    if (Model.Pager != null)
+    {
+        pager = Model.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 
@@ -18,11 +28,11 @@
         <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             
-            @if (@Model.Authors is {Count: > 0 })
+            @if (Model.TopThree is {Count: > 0 })
             {
-                <p class="card-text">Your Top Creator number 1</p>
-                <p><h3>@Model.Authors[0].Name</h3></p>
-                <p><a href=@Model.Authors[0].Url target="_blank">Visit the channel</a></p>
+                <p class="card-text">Top Creator number 1</p>
+                <p><h3>@Model.TopThree[0].Name</h3></p>
+                <p><button class="btn btn-secondary" href=@Model.TopThree[0].Url target="_blank">Visit the channel</button></p>
             }
             else
             {
@@ -36,11 +46,11 @@
         <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             
-            @if (@Model.Authors is { Count: > 1 })
+            @if (Model.TopThree is { Count: > 1 })
             {
-                <p class="card-text">Your Top Creator number number 2</p>
-                <p><h3>@Model.Authors[1].Name</h3></p>
-                <p><a href=@Model.Authors[1].Url target="_blank">Visit the channel</a></p>
+                <p class="card-text">Top Creator number 2</p>
+                <p><h3>@Model.TopThree[1].Name</h3></p>
+                <p><button class="btn btn-secondary" href=@Model.TopThree[1].Url target="_blank">Visit the channel</button></p>
             }
             else
             {
@@ -53,11 +63,11 @@
         <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             
-            @if (@Model.Authors is { Count: > 2 })
+            @if (Model.TopThree is { Count: > 2 })
             {
-                <p class="card-text">Your Top Creator number number 3</p>
-                <p><h3>@Model.Authors[2].Name</h3></p>
-                <p><a href="@Model.Authors[2].Url" target="_blank">Visit the channel</a></p>
+                <p class="card-text">Top Creator number 3</p>
+                <p><h3>@Model.TopThree[2].Name</h3></p>
+                <p><button class="btn btn-secondary" href="@Model.TopThree[2].Url" target="_blank">Visit the channel</button></p>
             }
             else
             {
@@ -68,23 +78,22 @@
 </div>
 <ul class="nav nav-tabs mt-5" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" data-bs-toggle="tab" href="#creators" aria-selected="true" role="tab">Top Ten creators</a>
+        <a class="nav-link active" data-bs-toggle="tab" href="#creators" aria-selected="true" role="tab">Viewed channels</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" data-bs-toggle="tab" href="#videos" aria-selected="false" role="tab" tabindex="-1">Top Ten videos</a>
+        <a class="nav-link" data-bs-toggle="tab" href="#videos" aria-selected="false" role="tab" tabindex="-1">Watched videos</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content ">
     <div class="tab-pane fade active show" id="creators" role="tabpanel">
-        <h3><br/>Top 10 most viewed creators</h3>
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th><h4>Creator</h4></th>
-                <th><h4>Viewed</h4></th>
-                <th><h4>Recently viewed video</h4></th>
+                <th>Creator</th>
+                <th>Viewed</th>
+                <th>Recently viewed video</th>
             </tr>
-            
+
             </thead>
             <tbody>
             @{ var c = 0; }
@@ -95,7 +104,43 @@
                     <tr>
                         <th>@a.Name</th>
                         <th>@a.Films.Count</th>
-                        <th>@a.Films[0].Title <br/> <a href=@a.Films[0].Url>Link</a></th>
+                        <th><a target="_blank" href=@a.Films[0].Url> @a.Films[0].Title </a></th>
+                    </tr>
+                }
+                c++;
+            }
+            </tbody>
+        </table>
+        @if (pager.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-end">
+                @for (var pg = pager.StartPage; pg <= pager.EndPage; pg++)
+                {
+                    <li class="page-item @(pg == pager.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-route-pg="@pg">@pg</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    
+    <div class="tab-pane fade" id="videos" role="tabpanel">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Number of views</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{ c = 0; }
+            @foreach (var a in Model.VideosNumberOfViews)
+            {
+                @if (c < 10)
+                {
+                    <tr>
+                        <th>@a.Key</th>
+                        <th>@a.Value</th>
                     </tr>
                 }
                 c++;
@@ -103,33 +148,4 @@
             </tbody>
         </table>
     </div>
-<div class="tab-pane fade" id="videos" role="tabpanel">
-    <h3><br/>Top 10 most viewed videos</h3>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th><h4>Title</h4></th>
-            <th><h4>Number of views</h4></th>
-        </tr>
-        </thead>
-        <tbody>
-        @{ c = 0; }
-                @foreach (var a in Model.VideosNumberOfViews)
-        {
-            @if (c < 10)
-            {
-                <tr>
-                    <th>@a.Key</th>
-                    <th>@a.Value</th>
-                </tr>
-            }
-            c++;
-        }
-        </tbody>
-    </table>
-
-</div>
-
-    
-
 </div>

@@ -10,7 +10,7 @@ namespace HistoryBrowser.Cli
         public List<Entry> ReadVideosHistory()
         {
             var directory = new DirectoryInfo(@"C:\Users\burab\source\repos\RazorPages\RazorPages\uploads\");
-            var fileName = directory.GetFiles().Select(fi => fi.Name).Last();
+            var fileName = directory.GetFiles().Select(fi => fi.Name).LastOrDefault();
             var path = $"C:\\Users\\burab\\source\\repos\\RazorPages\\RazorPages\\uploads\\{fileName}";
             if (fileName != null)
             {
