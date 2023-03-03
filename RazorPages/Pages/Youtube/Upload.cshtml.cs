@@ -30,7 +30,7 @@ namespace RazorPages.Pages.Youtube
             {
                 TempData["error"] = "Error has occurred";
             }
-            return RedirectToPage("DisplayAllAuthors");
+            return RedirectToPage("../Index");
         }
     }
 }

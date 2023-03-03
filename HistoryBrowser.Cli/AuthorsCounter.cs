@@ -45,28 +45,28 @@ namespace HistoryBrowser.Cli
             return VideoCount.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public Subtitle GetMostPopularAuthor(List<Entry> entries)
+        public List<Author> GetAuthors(List<Entry> entries)
         {
-            var dict = new Dictionary<Subtitle, int>();
+            var authors = new List<Author>();
 
             foreach (var entry in entries)
             {
                 if (entry.Subtitles is null) continue;
 
-                var name = entry.Subtitles[0].Name;
-                var url = entry.Subtitles[0].Url;
+                var author = new Author { Name = entry.Subtitles[0].Name, Url = entry.Subtitles[0].Url };
 
-                var author = new Subtitle
+                var film = new Film { Title = entry.Title.Remove(0, 10), Time = entry.Time, Url = entry.TitleUrl };
+
+                var index = authors.FindIndex(a => a.Name == author.Name);
+
+                if (index < 0)
                 {
-                    Name = name,
-                    Url = url
-                };
-
-                if (dict.ContainsKey(author)) dict[author]++;
-                else dict.Add(author, 1);
+                    author.Films.Add(film);
+                    authors.Add(author);
+                }
+                else authors[index].Films.Add(film);
             }
-
-            return dict.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value).FirstOrDefault().Key;
+            return authors;
         }
     }
 }

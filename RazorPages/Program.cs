@@ -1,3 +1,5 @@
+using HistoryBrowser.Cli;
+using HistoryBrowser.Cli.Services;
 using Microsoft.EntityFrameworkCore;
 using RazorPages.Data;
 
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+builder.Services.AddSingleton<IAuthorService, AuthorService>();
 
 var app = builder.Build();
 

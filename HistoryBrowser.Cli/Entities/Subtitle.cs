@@ -2,7 +2,7 @@
 {
     public class Subtitle
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public string? Name { get; set; } //channel name
+        public string? Url { get; set; } //channel url
     }
 }

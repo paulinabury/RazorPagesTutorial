@@ -1,38 +1,135 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model RazorPages.Pages.IndexModel
 @{
-    var author =  Model.MostPopularAuthor.Name;
-    var channel = Model.MostPopularAuthor.Url;
+    var message = "Upload your youtube history to get results. ";
 }
 
 
-<div class="card w-100 mb-2 p-2">
+<div class="card w-100 mb-4 mt-1 p-2">
     <p>Upload your youtube history and see who your favorite creator is and what video you have seen the most times!</p>
     <div class="d-grid gap-2 d-md-block">
-       <a asp-page="Youtube/Upload" class="btn btn-primary my-2 ">Add your history</a>
+        <a asp-page="Youtube/Upload" class="btn btn-primary my-2 ">Add your history</a>
     </div>
 </div>
 
-
 <div class="d-flex justify-content-between">
-    <div class="card" style="width: 22rem;">
-        <a href="https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl" target="_blank"><img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="..."></a>
+    <div class="card" style="width: 25rem;">
+        <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <p class="card-text">Checkout trending videos on YouTube! </p>
-            <p><a href="https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl" target="_blank">Link to trading page</a></p>
+            
+            @if (@Model.Authors is {Count: > 0 })
+            {
+                <p class="card-text">Your Top Creator number 1</p>
+                <p><h3>@Model.Authors[0].Name</h3></p>
+                <p><a href=@Model.Authors[0].Url target="_blank">Visit the channel</a></p>
+            }
+            else
+            {
+                <p class="card-text">@message</p>
+            }
+
         </div>
     </div>
-    <div class="card" style="width: 22rem;">
-        <img src="https://picsum.photos/200/140" class="card-img-top" alt="...">
+
+    <div class="card" style="width: 25rem;">
+        <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <p class="card-text">Your favorite creator is @author</p>
-            <p><a href="@channel" target="_blank">Link to the channel</a></p>
+            
+            @if (@Model.Authors is { Count: > 1 })
+            {
+                <p class="card-text">Your Top Creator number number 2</p>
+                <p><h3>@Model.Authors[1].Name</h3></p>
+                <p><a href=@Model.Authors[1].Url target="_blank">Visit the channel</a></p>
+            }
+            else
+            {
+                <p class="card-text">@message</p>
+            }
         </div>
     </div>
-    <div class="card" style="width: 22rem;">
-        <img src="https://picsum.photos/200/140" class="card-img-top" alt="...">
+
+    <div class="card" style="width: 25rem;">
+        <img src="https://glamrap.pl/wp-content/uploads/2019/07/youtube-logo.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            
+            @if (@Model.Authors is { Count: > 2 })
+            {
+                <p class="card-text">Your Top Creator number number 3</p>
+                <p><h3>@Model.Authors[2].Name</h3></p>
+                <p><a href="@Model.Authors[2].Url" target="_blank">Visit the channel</a></p>
+            }
+            else
+            {
+                <p class="card-text">@message</p>
+            }
         </div>
     </div>
+</div>
+<ul class="nav nav-tabs mt-5" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-bs-toggle="tab" href="#creators" aria-selected="true" role="tab">Top Ten creators</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab" href="#videos" aria-selected="false" role="tab" tabindex="-1">Top Ten videos</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content ">
+    <div class="tab-pane fade active show" id="creators" role="tabpanel">
+        <h3><br/>Top 10 most viewed creators</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th><h4>Creator</h4></th>
+                <th><h4>Viewed</h4></th>
+                <th><h4>Recently viewed video</h4></th>
+            </tr>
+            
+            </thead>
+            <tbody>
+            @{ var c = 0; }
+            @foreach (var a in Model.Authors)
+            {
+                @if (c < 10)
+                {
+                    <tr>
+                        <th>@a.Name</th>
+                        <th>@a.Films.Count</th>
+                        <th>@a.Films[0].Title <br/> <a href=@a.Films[0].Url>Link</a></th>
+                    </tr>
+                }
+                c++;
+            }
+            </tbody>
+        </table>
+    </div>
+<div class="tab-pane fade" id="videos" role="tabpanel">
+    <h3><br/>Top 10 most viewed videos</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th><h4>Title</h4></th>
+            <th><h4>Number of views</h4></th>
+        </tr>
+        </thead>
+        <tbody>
+        @{ c = 0; }
+                @foreach (var a in Model.VideosNumberOfViews)
+        {
+            @if (c < 10)
+            {
+                <tr>
+                    <th>@a.Key</th>
+                    <th>@a.Value</th>
+                </tr>
+            }
+            c++;
+        }
+        </tbody>
+    </table>
+
+</div>
+
+    
+
 </div>

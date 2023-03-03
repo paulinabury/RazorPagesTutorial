@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HistoryBrowser.Cli\HistoryBrowser.Cli.csproj" />
+    <PackageReference Include="JW.Pager" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
